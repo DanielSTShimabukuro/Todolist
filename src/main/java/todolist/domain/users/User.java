@@ -1,4 +1,4 @@
-package todolist.domain;
+package todolist.domain.users;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
