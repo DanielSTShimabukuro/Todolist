@@ -18,7 +18,7 @@ public class CreateUserUseCase {
   public UserResponseDTO execute(UserCreateRequestDTO request) {
     User user = new User(request);
 
-    this.repository.save(user);
+    repository.save(user);
 
     return UserResponseDTO.from(user);
   }
