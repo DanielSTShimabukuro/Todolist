@@ -17,7 +17,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import todolist.interfaces.rest.users.requests.UserCreateRequestDTO;
+import todolist.interfaces.rest.users.requests.UserRequestDTO;
 
 @Entity(name = "users")
 @Table(name = "users")
@@ -47,7 +47,7 @@ public class User {
   @UpdateTimestamp
   private LocalDateTime updatedAt;
 
-  public User(UserCreateRequestDTO request) {
+  public User(UserRequestDTO request) {
     this.username = request.username();
     this.email = request.email();
     this.password = request.password();
