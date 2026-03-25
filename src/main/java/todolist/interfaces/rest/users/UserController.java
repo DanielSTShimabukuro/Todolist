@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import todolist.application.users.CreateUserUseCase;
+import todolist.application.users.DeleteUserByIdUseCase;
 import todolist.application.users.GetAllUsersUseCase;
 import todolist.application.users.GetUserByIdUseCase;
 import todolist.application.users.UpdateUserByIdUseCase;
@@ -30,6 +32,7 @@ public class UserController {
   private final GetAllUsersUseCase getAllUsersUseCase;
   private final GetUserByIdUseCase getUserByIdUseCase;
   private final UpdateUserByIdUseCase updateUserByIdUseCase;
+  private final DeleteUserByIdUseCase deleteUserByIdUseCase;
 
   @PostMapping
   public ResponseEntity<UserResponseDTO> createUser(@RequestBody @Valid UserRequestDTO request) {
@@ -53,9 +56,16 @@ public class UserController {
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<UserResponseDTO> updateUserById(@PathVariable UUID id, UserRequestDTO request) {
+  public ResponseEntity<UserResponseDTO> updateUserById(@PathVariable UUID id, @RequestBody @Valid UserRequestDTO request) {
     UserResponseDTO response = updateUserByIdUseCase.execute(id, request);
 
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Void>deleteUserById(@PathVariable UUID id) {
+    deleteUserByIdUseCase.execute(id);
+
+    return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+  } 
 }
