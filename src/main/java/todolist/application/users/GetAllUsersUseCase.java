@@ -14,9 +14,10 @@ public class GetAllUsersUseCase {
   private final UserRepository repository;
 
   public List<UserResponseDTO> execute() {
-    return repository.findAll()
-                      .stream()
-                      .map(user -> UserResponseDTO.from(user))
-                      .toList();
+    return this.repository
+                .findAll()
+                .stream()
+                .map(user -> UserResponseDTO.from(user))
+                .toList();
   }
 }

@@ -19,12 +19,12 @@ public class UpdateUserByIdUseCase {
 
   @Transactional
   public UserResponseDTO execute(UUID id, UserRequestDTO request) {
-    User user = repository.findById(id).orElseThrow(() -> new NotFoundException("User Not Found."));
+    User user = this.repository.findById(id).orElseThrow(() -> new NotFoundException("User Not Found."));
 
     user.setUsername(request.username());
     user.setEmail(request.email());
     user.setPassword(request.password());
-    repository.save(user);
+    this.repository.save(user);
 
     return UserResponseDTO.from(user);
   }

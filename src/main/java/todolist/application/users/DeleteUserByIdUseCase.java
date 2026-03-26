@@ -17,8 +17,8 @@ public class DeleteUserByIdUseCase {
 
   @Transactional
   public void execute(UUID id) {
-    User user = repository.findById(id).orElseThrow(() -> new NotFoundException("User Not Found."));
+    User user = this.repository.findById(id).orElseThrow(() -> new NotFoundException("User Not Found."));
     
-    repository.delete(user);
+    this.repository.delete(user);
   }
 }

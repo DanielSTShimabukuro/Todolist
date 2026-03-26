@@ -36,35 +36,35 @@ public class UserController {
 
   @PostMapping
   public ResponseEntity<UserResponseDTO> createUser(@RequestBody @Valid UserRequestDTO request) {
-    UserResponseDTO response = createUserUseCase.execute(request);
+    UserResponseDTO response = this.createUserUseCase.execute(request);
 
     return ResponseEntity.status(HttpStatus.CREATED).body(response);
   }
 
   @GetMapping
   public ResponseEntity<List<UserResponseDTO>> getAllUsers() {
-    List<UserResponseDTO> response = getAllUsersUseCase.execute();
+    List<UserResponseDTO> response = this.getAllUsersUseCase.execute();
 
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 
   @GetMapping("/{id}")
   public ResponseEntity<UserResponseDTO> getUserById(@PathVariable UUID id) {
-    UserResponseDTO response = getUserByIdUseCase.execute(id);
+    UserResponseDTO response = this.getUserByIdUseCase.execute(id);
 
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 
   @PutMapping("/{id}")
   public ResponseEntity<UserResponseDTO> updateUserById(@PathVariable UUID id, @RequestBody @Valid UserRequestDTO request) {
-    UserResponseDTO response = updateUserByIdUseCase.execute(id, request);
+    UserResponseDTO response = this.updateUserByIdUseCase.execute(id, request);
 
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 
   @DeleteMapping("/{id}")
   public ResponseEntity<Void>deleteUserById(@PathVariable UUID id) {
-    deleteUserByIdUseCase.execute(id);
+    this.deleteUserByIdUseCase.execute(id);
 
     return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
   } 
