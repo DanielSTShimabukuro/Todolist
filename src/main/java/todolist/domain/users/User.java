@@ -65,4 +65,8 @@ public class User {
   private void addItem(Item item) {
     this.items.add(item);
   }
+
+  private void removeItem(Item item) {
+    this.items.remove(item);
+  }
 }
