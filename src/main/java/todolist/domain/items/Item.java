@@ -58,10 +58,10 @@ public class Item {
   @JoinColumn(nullable = false, name = "user_id")
   private User user;
 
-  public Item(ItemRequestDTO request, User user) {
+  public Item(User user, ItemRequestDTO request) {
+    this.user = user;
     this.name = request.name();
     this.description = request.description();
     this.type = ItemType.PENDING;
-    this.user = user;
   }
 }
