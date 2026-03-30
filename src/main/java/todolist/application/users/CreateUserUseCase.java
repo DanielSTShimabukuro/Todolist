@@ -1,8 +1,8 @@
 package todolist.application.users;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import todolist.domain.users.User;
 import todolist.infra.persistence.users.UserRepository;

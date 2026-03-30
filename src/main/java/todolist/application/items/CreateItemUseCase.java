@@ -3,8 +3,8 @@ package todolist.application.items;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import todolist.application.exceptions.NotFoundException;
 import todolist.domain.items.Item;

@@ -18,7 +18,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import todolist.application.users.CreateUserUseCase;
 import todolist.application.users.DeleteUserByIdUseCase;
-import todolist.application.users.GetAllUsersUseCase;
+import todolist.application.users.ListUsersUseCase;
 import todolist.application.users.GetUserByIdUseCase;
 import todolist.application.users.UpdateUserByIdUseCase;
 import todolist.interfaces.rest.users.requests.UserRequestDTO;
@@ -29,7 +29,7 @@ import todolist.interfaces.rest.users.responses.UserResponseDTO;
 @RequestMapping("/v1/users")
 public class UserController {
   private final CreateUserUseCase createUserUseCase;
-  private final GetAllUsersUseCase getAllUsersUseCase;
+  private final ListUsersUseCase listUsersUseCase;
   private final GetUserByIdUseCase getUserByIdUseCase;
   private final UpdateUserByIdUseCase updateUserByIdUseCase;
   private final DeleteUserByIdUseCase deleteUserByIdUseCase;
@@ -42,8 +42,8 @@ public class UserController {
   }
 
   @GetMapping
-  public ResponseEntity<List<UserResponseDTO>> getAllUsers() {
-    List<UserResponseDTO> response = this.getAllUsersUseCase.execute();
+  public ResponseEntity<List<UserResponseDTO>> listUsers() {
+    List<UserResponseDTO> response = this.listUsersUseCase.execute();
 
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
