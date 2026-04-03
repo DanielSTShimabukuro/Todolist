@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import todolist.application.items.CreateItemUseCase;
+import todolist.application.items.GetItemByIdUseCase;
 import todolist.application.items.ListItemsUseCase;
+import todolist.infra.persistence.items.ItemRepository;
 import todolist.interfaces.rest.items.requests.ItemRequestDTO;
 import todolist.interfaces.rest.items.responses.ItemResponseDTO;
 
@@ -25,6 +27,7 @@ import todolist.interfaces.rest.items.responses.ItemResponseDTO;
 public class ItemController {
   private final CreateItemUseCase createItemUseCase;
   private final ListItemsUseCase listItemsUseCase;
+  private final GetItemByIdUseCase getItemByIdUseCase;
 
   @PostMapping
   public ResponseEntity<ItemResponseDTO> createItem(@PathVariable UUID userId, @RequestBody @Valid ItemRequestDTO request) {
@@ -36,6 +39,13 @@ public class ItemController {
   @GetMapping
   public ResponseEntity<List<ItemResponseDTO>> listItemsUseCase() {
     List<ItemResponseDTO> response = this.listItemsUseCase.execute();
+
+    return ResponseEntity.status(HttpStatus.OK).body(response);
+  }
+
+  @GetMapping
+  public ResponseEntity<ItemResponseDTO> getItemByIdUseCase(@PathVariable UUID id) {
+    ItemResponseDTO response = this.getItemByIdUseCase.execute(id);
 
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
