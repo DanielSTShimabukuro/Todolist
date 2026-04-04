@@ -17,7 +17,6 @@ import lombok.RequiredArgsConstructor;
 import todolist.application.items.CreateItemUseCase;
 import todolist.application.items.GetItemByIdUseCase;
 import todolist.application.items.ListItemsUseCase;
-import todolist.infra.persistence.items.ItemRepository;
 import todolist.interfaces.rest.items.requests.ItemRequestDTO;
 import todolist.interfaces.rest.items.responses.ItemResponseDTO;
 
@@ -43,7 +42,7 @@ public class ItemController {
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 
-  @GetMapping
+  @GetMapping("/{id}")
   public ResponseEntity<ItemResponseDTO> getItemByIdUseCase(@PathVariable UUID id) {
     ItemResponseDTO response = this.getItemByIdUseCase.execute(id);
 

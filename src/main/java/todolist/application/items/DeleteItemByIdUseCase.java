@@ -9,17 +9,16 @@ import lombok.RequiredArgsConstructor;
 import todolist.application.exceptions.NotFoundException;
 import todolist.domain.items.Item;
 import todolist.infra.persistence.items.ItemRepository;
-import todolist.interfaces.rest.items.responses.ItemResponseDTO;
 
 @RequiredArgsConstructor
 @Service
-public class GetItemByIdUseCase {
+public class DeleteItemByIdUseCase {
   private final ItemRepository repository;
 
-  @Transactional(readOnly = true)
-  public ItemResponseDTO execute(UUID id) {
+  @Transactional
+  public void execute(UUID id) {
     Item item = this.repository.findById(id).orElseThrow(() -> new NotFoundException("Item Not Found."));
 
-    return ItemResponseDTO.from(item);
+    this.repository.delete(item);
   }
 }
