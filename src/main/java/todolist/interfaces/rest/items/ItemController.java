@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import todolist.application.items.CreateItemUseCase;
+import todolist.application.items.DeleteItemByIdUseCase;
 import todolist.application.items.GetItemByIdUseCase;
 import todolist.application.items.ListItemsUseCase;
 import todolist.interfaces.rest.items.requests.ItemRequestDTO;
@@ -27,6 +29,7 @@ public class ItemController {
   private final CreateItemUseCase createItemUseCase;
   private final ListItemsUseCase listItemsUseCase;
   private final GetItemByIdUseCase getItemByIdUseCase;
+  private final DeleteItemByIdUseCase deleteItemByIdUseCase;
 
   @PostMapping
   public ResponseEntity<ItemResponseDTO> createItem(@PathVariable UUID userId, @RequestBody @Valid ItemRequestDTO request) {
@@ -36,16 +39,23 @@ public class ItemController {
   }
   
   @GetMapping
-  public ResponseEntity<List<ItemResponseDTO>> listItemsUseCase() {
+  public ResponseEntity<List<ItemResponseDTO>> listItems() {
     List<ItemResponseDTO> response = this.listItemsUseCase.execute();
 
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<ItemResponseDTO> getItemByIdUseCase(@PathVariable UUID id) {
+  public ResponseEntity<ItemResponseDTO> getItemById(@PathVariable UUID id) {
     ItemResponseDTO response = this.getItemByIdUseCase.execute(id);
 
     return ResponseEntity.status(HttpStatus.OK).body(response);
+  }
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Void> deleteItemById(@PathVariable UUID id) {
+    this.deleteItemByIdUseCase.execute(id);
+
+    return ResponseEntity.status(HttpStatus.OK).body(null);
   }
 }
