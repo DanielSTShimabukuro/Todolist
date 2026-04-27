@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +20,7 @@ import todolist.application.items.CreateItemUseCase;
 import todolist.application.items.DeleteItemByIdUseCase;
 import todolist.application.items.GetItemByIdUseCase;
 import todolist.application.items.ListItemsUseCase;
+import todolist.application.items.UpdateItemByIdUseCase;
 import todolist.interfaces.rest.items.requests.ItemRequestDTO;
 import todolist.interfaces.rest.items.responses.ItemResponseDTO;
 
@@ -29,6 +31,7 @@ public class ItemController {
   private final CreateItemUseCase createItemUseCase;
   private final ListItemsUseCase listItemsUseCase;
   private final GetItemByIdUseCase getItemByIdUseCase;
+  private final UpdateItemByIdUseCase updateItemByIdUseCase;
   private final DeleteItemByIdUseCase deleteItemByIdUseCase;
 
   @PostMapping
@@ -48,6 +51,13 @@ public class ItemController {
   @GetMapping("/{id}")
   public ResponseEntity<ItemResponseDTO> getItemById(@PathVariable UUID id) {
     ItemResponseDTO response = this.getItemByIdUseCase.execute(id);
+
+    return ResponseEntity.status(HttpStatus.OK).body(response);
+  }
+
+  @PatchMapping("/{id}")
+  public ResponseEntity<ItemResponseDTO> updateItemById(@PathVariable UUID id, @RequestBody @Valid ItemRequestDTO request) {
+    ItemResponseDTO response = this.updateItemByIdUseCase.execute(id, request);
 
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
